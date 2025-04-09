@@ -74,6 +74,9 @@ _LSP_SIG_CFG = {
     -- 'inline', 'eol'
     return false -- return fn.has('nvim_0.10') == 1
   end,
+  hint_customization = function(hint)
+    return hint
+  end,
   hi_parameter = 'LspSignatureActiveParameter',
   handler_opts = { border = 'rounded' },
   cursorhold_update = true, -- if cursorhold slows down the completion, set to false to disable it
@@ -116,6 +119,7 @@ local function virtual_hint(hint, off_y)
   if hint == nil or hint == '' then
     return
   end
+  hint = _LSP_SIG_CFG.hint_customization(hint)
   local dwidth = fn.strdisplaywidth
   local r = vim.api.nvim_win_get_cursor(0)
   local line = api.nvim_get_current_line()
